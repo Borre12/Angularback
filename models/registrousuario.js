@@ -8,7 +8,7 @@ const UsuarioSchema = mongoose.Schema({
     },
     correo: {
         type: String,
-        require: true
+        require: true,
     },
     telefono: {
         type: String,
@@ -19,13 +19,13 @@ const UsuarioSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    contrasena: {
+    contrasena : {
         type: String,
         require: true
     },
     nombreusuario: {
         type: String,
-        require: true
+        require: true,
     },
     informacion: {
         type: String,
@@ -38,26 +38,14 @@ const UsuarioSchema = mongoose.Schema({
 
 })
 
-UsuarioSchema.pre('save', function (next){
-    bcrypt.genSalt(10).then(salts => {
-        bcrypt.hash(this.contrasena, salts).then(hash => {
-            this.contrasena = hash;
-            next();
-        }).catch(error => next(error))
-    }).catch(error => next(error))
-});
-
-//Metodo para comparar contrasenas
-/*
-UsuarioSchema.methods.compararClave =  function (contrasena, cb){
-    bcrypt.compare(contrasena, this.password, function (err, resultado){
-        if (err){
-            return cb(err)
-        }
-        cb(null, resultado)
-    })
+UsuarioSchema.methods = {
+    passwordvalidation(contrasena){
+        return bcrypt.compare(contrasena.replace(' ', ''), this.contrasena);
+    }
 }
 
- */
-
+UsuarioSchema.pre('save', function (next){
+    this.contrasena = bcrypt.hashSync(this.contrasena.replace(' ', ''), 10);
+    next();
+})
 module.exports = mongoose.model('registrousuario', UsuarioSchema)
