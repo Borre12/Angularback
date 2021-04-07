@@ -40,7 +40,7 @@ const UsuarioSchema = mongoose.Schema({
 
 UsuarioSchema.methods = {
     passwordvalidation(contrasena){
-        return bcrypt.compare(contrasena.replace(' ', ''), this.contrasena);
+        return bcrypt.compareSync(contrasena.replace(' ', ''), this.contrasena);
     }
 }
 

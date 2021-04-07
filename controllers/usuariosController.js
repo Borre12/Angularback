@@ -25,34 +25,3 @@ exports.obtenerusuarios = async (req, res) =>{
         res.status(500).send('hubo un error')
     }
 }
-
-exports.loginuser =  () =>{
-
-    passport.use(new localStorage ({
-        usernameField: 'nombreusuario',
-        passwordField: 'contrasena'
-    },async (nombreusuario, contrasena, done) => {
-        const user = registrousuario.findOne(nombreusuario)
-        if (!user){
-            return done(null, false, {message: 'nombreusuario no encontrado'})
-        }else{
-            const match = await user.encontrarcontrasena(contrasena)
-            if (match){
-                return done(null, user);
-            } else{
-                return done(null,false, {message: 'Contrasena incorrecta'})
-            }
-        }
-    }))
-
-    passport.serializeUser((user, done) => {
-        done(null, user._id);
-    })
-
-    passport.deserializeUser((_id,done ) => {
-        User.findById(_id, (err, user) => {
-            done(err, user)
-        })
-    })
-
-}
