@@ -2,11 +2,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/registrousuario');
 
-passport.use('/login', new LocalStrategy({usernameField: 'nombreusuario', passwordField: 'contrasena'},(nombreusuario, contrasena, done) => {
-
+passport.use('login', new LocalStrategy({usernameField: 'nombreusuario', passwordField: 'contrasena'},(nombreusuario, contrasena, done) => {
     User.findOne({'nombreusuario': nombreusuario})
         .then((user)=>{
             if (!user){
+                console.log('usuario no encontrado')
                 return done(null, false, {message: 'Usuario no encontrado'})
             }else if (!user.passwordvalidation(contrasena)){
                 console.log('Wrong pass');
