@@ -1,12 +1,9 @@
-const registrousuario = require('../models/registrousuario')
-const jwt  = require('jsonwebtoken')
-const passport = require('passport');
-const localStorage = require('passport-local').Strategy
+const Usuario = require('../models/Usuarios')
 
 exports.crearUsuario = async (req, res) =>{
   try{
-      usuario = new registrousuario(req.body)
-
+      usuario = new Usuario(req.body)
+        console.log(usuario)
     await  usuario.save()
       res.send(usuario)
   }catch (error){
@@ -14,10 +11,9 @@ exports.crearUsuario = async (req, res) =>{
       res.status(500).send('Hubo un error');
   }
 }
-
 exports.obtenerusuarios = async (req, res) =>{
     try{
-        const usuarios = await registrousuario.find();
+        const usuarios = await Usuario.find();
         res.json(usuarios)
 
     }catch (error){

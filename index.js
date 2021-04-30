@@ -19,6 +19,7 @@ app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session())
 app.use('/home/usuarios', require('./routes/registrousuario'))
+app.use('/home/empleador', require('./routes/EmpleadorRoutes'))
 app.listen(4000, ()=> {
     console.log('si entro')
 })

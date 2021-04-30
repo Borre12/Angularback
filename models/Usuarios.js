@@ -6,6 +6,10 @@ const UsuarioSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    fechaNac: {
+        type: String,
+        require: true
+    },
     correo: {
         type: String,
         require: true,
@@ -27,7 +31,15 @@ const UsuarioSchema = mongoose.Schema({
         type: String,
         require: true,
     },
+    genero: {
+        type: String,
+        require: true,
+    },
     informacion: {
+        type: String,
+        require: true
+    },
+    estudios: {
         type: String,
         require: true
     },
@@ -35,7 +47,6 @@ const UsuarioSchema = mongoose.Schema({
         type: Date,
         default: Date.now()
     }
-
 })
 
 UsuarioSchema.methods = {
@@ -43,9 +54,8 @@ UsuarioSchema.methods = {
         return bcrypt.compareSync(contrasena.replace(' ', ''), this.contrasena);
     }
 }
-
 UsuarioSchema.pre('save', function (next){
     this.contrasena = bcrypt.hashSync(this.contrasena.replace(' ', ''), 10);
     next();
 })
-module.exports = mongoose.model('registrousuario', UsuarioSchema)
+module.exports = mongoose.model('Usuarios', UsuarioSchema)
