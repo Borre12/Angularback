@@ -29,22 +29,22 @@ const EmpleadorSchema = mongoose.Schema({
             type: String,
             require: true
         },
-    categoria: {
+        categoria: {
             type: String,
             require: true
-    },
-    titulo: {
+        },
+        titulo: {
             type: String,
             require: true
-    },
-    descripcion: {
+        },
+        descripcion: {
             type: String,
             require: true
-    },
-    informacion: {
+        },
+        informacion: {
             type: String,
             require: true
-    }
+        }
 })
 
 EmpleadorSchema.methods = {

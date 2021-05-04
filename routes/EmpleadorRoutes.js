@@ -1,5 +1,5 @@
 const empleadorController = require('../controllers/empleadorController')
-const passport = require('../service/passport');
+const passport = require('../service/passportEmp')
 const router = require('express').Router();
 
 router.post('/register',  passport.authenticate('register'), (req, res) => res.json(req.emp));
